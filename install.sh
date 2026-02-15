@@ -18,10 +18,10 @@ AUR_HELPER=""
 # Load Libraries
 #source "$SCRIPT_DIR/lib/utils.sh"
 #source "$SCRIPT_DIR/lib/commands.sh"
-#source "$SCRIPT_DIR/lib/validation.sh"
-#source "$SCRIPT_DIR/lib/profile.sh"
+source "$SCRIPT_DIR/lib/validation.sh"
+source "$SCRIPT_DIR/lib/profile.sh"
 #source "$SCRIPT_DIR/lib/packages.sh"
-#source "$SCRIPT_DIR/lib/installers.sh"
+source "$SCRIPT_DIR/lib/installers.sh"
 #source "$SCRIPT_DIR/lib/files.sh"
 
 # Functions
