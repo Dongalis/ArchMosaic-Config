@@ -2,6 +2,9 @@
 
 # Profile handling and dependency resolution
 
+[[ -n "${PROFILES_SH_LOADED:-}" ]] && return
+readonly PROFILES_SH_LOADED=1
+
 PROFILES_DIR="$SCRIPT_DIR/profiles"
 
 RESOLVED_PROFILES=()

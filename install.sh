@@ -16,13 +16,12 @@ PROFILES=()
 AUR_HELPER=""
 
 # Load Libraries
-#source "$SCRIPT_DIR/lib/utils.sh"
-#source "$SCRIPT_DIR/lib/commands.sh"
+source "$SCRIPT_DIR/lib/commands.sh"
 source "$SCRIPT_DIR/lib/validation.sh"
 source "$SCRIPT_DIR/lib/profile.sh"
-#source "$SCRIPT_DIR/lib/packages.sh"
-source "$SCRIPT_DIR/lib/installers.sh"
-#source "$SCRIPT_DIR/lib/files.sh"
+source "$SCRIPT_DIR/lib/packages.sh"
+source "$SCRIPT_DIR/lib/helpers.sh"
+source "$SCRIPT_DIR/lib/files.sh"
 
 # Functions
 load_config() {
@@ -62,7 +61,7 @@ validate_system() {
 }
 
 detect_aur_helper() {
-    installers_detect_aur_helper
+    helpers_detect_aur_helper
     echo "Using AUR helper: $AUR_HELPER"
 }
 
@@ -75,7 +74,7 @@ run_pre_install() {
 }
 
 setup_core_packages() {
-    core_packaging_setup
+    helpers_packaging_setup
 }
 
 install_packages() {
