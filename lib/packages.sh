@@ -27,9 +27,9 @@ packages_install_bulk() {
     
     for pkg in "${packages[@]}"; do
         if pacman -Si "$pkg" &>/dev/null; then
-            pacmian_list+=("$pkg")
+            pacman_list+=("$pkg")
         else
-            if $AUR_HELPER -Ss "^$pkg$" &>/dev/null; then
+            if $AUR_HELPER -Si "$pkg" &>/dev/null; then
                 aur_list+=("$pkg")
             else
                 echo "Warning: Package '$pkg' not found in pacman or AUR, skipping."
@@ -37,14 +37,14 @@ packages_install_bulk() {
         fi
     done
     
-    if [[ ${#pacman_list[@]} -eq 0 ]]; then
+    if [[ ${#pacman_list[@]} -ne 0 ]]; then
         sudo pacman -Suy --needed "${pacman_list[@]}"
     else
         echo "no packages for pacman"
     fi
 
-    if [[ ${#aur_list[@]} -eq 0 ]]; then
-        $AUR_HELPER -Suy --needed "${aur_lust[@]}"
+    if [[ ${#aur_list[@]} -ne 0 ]]; then
+        $AUR_HELPER -Suy --needed "${aur_list[@]}"
     else
         echo "no packages for $AUR_HELPER"
     fi
@@ -55,7 +55,7 @@ flatpak_install_bulk() {
     local flatpak_list=()
 
     for profile in "${profiles[@]}"; do
-        local file=("$SCRIPT_DIR/profiles/${profile}/packages.txt")
+        local file=("$SCRIPT_DIR/profiles/${profile}/flatpaks.txt")
 
         if [[ ! -f "$file" ]]; then
             echo "Warning: File not found: $file"

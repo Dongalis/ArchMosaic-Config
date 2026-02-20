@@ -44,11 +44,11 @@ helpers_detect_aur_helper() {
 
         case "$choice" in
             1)
-                helper="paru"
+                AUR_HELPER="paru"
                 break
                 ;;
             2)
-                helper="yay"
+                AUR_HELPER="yay"
                 break
                 ;;
             *)
@@ -65,11 +65,11 @@ helpers_install_chaotic_aur() {
     fi
     
     sudo pacman-key --init 
-    pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    pacman-key --lsign-key 3056513887B78AEB
+    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+    sudo pacman-key --lsign-key 3056513887B78AEB
     sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
     sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
-    echo -e "\r\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >>/etc/pacman.conf
+    echo -e "\r\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf >/dev/null
     sudo pacman -Syu
 }
 
