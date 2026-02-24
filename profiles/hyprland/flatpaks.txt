@@ -1,0 +1,2 @@
+org.kde.pix
+com.github.rafostar.Clapper
