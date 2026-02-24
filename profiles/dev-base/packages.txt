@@ -1,0 +1,4 @@
+sublime-text-4
+sublime-merge
+neovim
+git
