@@ -43,3 +43,5 @@ neovim
 jq
 hyprpicker
 hyprshutdown
+hypridle
+hyprlock
