@@ -1,2 +1,3 @@
-proton-pass
+proton-pass-bin
+proton-pass-cli-bin
 
