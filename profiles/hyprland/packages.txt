@@ -45,3 +45,4 @@ hyprpicker
 hyprshutdown
 hypridle
 hyprlock
+speech-dispatcher
