@@ -48,3 +48,4 @@ hyprshutdown
 hypridle
 hyprlock
 speech-dispatcher
+unzip
