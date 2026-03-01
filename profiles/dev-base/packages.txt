@@ -3,3 +3,4 @@ sublime-merge
 neovim
 git
 ripgrep
+tree-sitter-cli
