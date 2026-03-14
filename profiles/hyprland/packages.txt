@@ -1,10 +1,12 @@
 hyprland
 mako
 noto-fonts
+noto-fonts-emoji
 noto-fonts-cjk
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
 ttf-dejavu-nerd
+ttf-jetbrains-mono-nerd
 waybar
 pamixer
 wiremix
@@ -41,7 +43,6 @@ git
 rust
 go
 firefox
-nwg-displays
 neovim
 jq
 hyprpicker
@@ -50,3 +51,7 @@ hypridle
 hyprlock
 speech-dispatcher
 unzip
+hyprshot
+satty
+power-profiles-daemon
+impala
