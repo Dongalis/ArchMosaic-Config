@@ -80,7 +80,7 @@ helpers_install_aur_helper() {
     fi
     
     if pacman -Sl chaotic-aur &>/dev/null; then
-        echo "installiong aur helper usig chaotic AUR"
+        echo "Installing AUR helper using chaotic AUR"
         sudo pacman -Syu --needed "$AUR_HELPER"
         return 0
     fi
