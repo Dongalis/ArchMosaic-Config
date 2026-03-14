@@ -50,3 +50,7 @@ hypridle
 hyprlock
 speech-dispatcher
 unzip
+hyprshot
+satty
+power-profiles-daemon
+impala
