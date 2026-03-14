@@ -15,9 +15,10 @@ execute_commands() {
 
         echo "===== Executing: $file ====="
         bash "$file"
+        local exit_code=$?
 
         # Stop immediately if a script fails
-        if [[ $? -ne 0 ]]; then
+        if [[ $exit_code -ne 0 ]]; then
             echo "Error while executing $file"
             return 1
         fi
