@@ -50,7 +50,6 @@ verify_files_against_metadata() {
     for profile_dir in "$SCRIPT_DIR/profiles/"*/; do
         # Extract profile name from path
         local profile="${profile_dir##*/}"
-        profile="${profile%/}"  # remove trailing slash
 
         local base_dir="$profile_dir/$type"
         [[ -d "$base_dir" ]] || continue
