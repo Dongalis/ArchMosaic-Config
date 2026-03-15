@@ -53,7 +53,11 @@ _profile_resolve_single() {
         _profile_resolve_single "$dep"
     done
 
-    STACK_PROFILES=("${STACK_PROFILES[@]/$profile}")
+    local new_stack=()
+    for item in "${STACK_PROFILES[@]}"; do
+        [[ "$item" != "$profile" ]] && new_stack+=("$item")
+    done
+    STACK_PROFILES=("${new_stack[@]}")
 
     SEEN_PROFILES+=("$profile")
     RESOLVED_PROFILES+=("$profile")
