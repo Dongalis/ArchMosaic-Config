@@ -219,8 +219,13 @@ files_deploy() {
     verify_metadata_files_exist home meta_home || exit 1
 
     deploy_root_files meta_root
-    TARGET_USER="${USER:-$(whoami)}"
-    deploy_home_files meta_home "$TARGET_USER"
+
+    if [[ $EUID -eq 0 ]]; then
+        echo "Running as root, skipping home file deployment."
+    else
+        TARGET_USER="${USER:-$(whoami)}"
+        deploy_home_files meta_home "$TARGET_USER"
+    fi
 }
 
 
