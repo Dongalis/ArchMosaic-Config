@@ -41,7 +41,6 @@ git
 rust
 go
 firefox
-nwg-displays
 neovim
 jq
 hyprpicker
