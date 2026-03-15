@@ -81,4 +81,6 @@ profile_resolve_dependencies() {
     for p in "${PROFILES[@]}"; do
         echo "  - $p"
     done
+
+    return 0
 }
