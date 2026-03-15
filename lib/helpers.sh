@@ -91,6 +91,14 @@ helpers_install_aur_helper() {
         cd "$HOME/${AUR_HELPER}"
         makepkg -si
     )
+    local makepkg_status=$?
+
+    if [[ $makepkg_status -ne 0 ]]; then
+        echo "Error: Failed to build/install $AUR_HELPER"
+        rm -rf "$HOME/${AUR_HELPER}"
+        exit 1
+    fi
+
     rm -rf "$HOME/${AUR_HELPER}"
 }
 

@@ -69,7 +69,7 @@ verify_files_against_metadata() {
             else
                 key="/$rel_path"
             fi
-            echo "$key"
+
             # Check if the file is in the manifest metadata
             if [[ -z "${meta_ref[$key]:-}" ]]; then
                 echo "[ERROR] File exists but missing from manifest:"

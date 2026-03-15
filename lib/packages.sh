@@ -37,15 +37,23 @@ packages_install_bulk() {
     done
     
     if [[ ${#pacman_list[@]} -ne 0 ]]; then
-        sudo pacman -Suy --needed "${pacman_list[@]}"
+        echo "Installing packages with pacman: ${pacman_list[@]}"
+        if ! sudo pacman -Suy --needed "${pacman_list[@]}"; then
+            echo "Error: Failed to install pacman packages"
+            exit 1
+        fi
     else
-        echo "no packages for pacman"
+        echo "No packages for pacman"
     fi
 
     if [[ ${#aur_list[@]} -ne 0 ]]; then
-        $AUR_HELPER -Suy --needed "${aur_list[@]}"
+        echo "Installing packages with $AUR_HELPER: ${aur_list[@]}"
+        if ! $AUR_HELPER -Suy --needed "${aur_list[@]}"; then
+            echo "Error: Failed to install AUR packages"
+            exit 1
+        fi
     else
-        echo "no packages for $AUR_HELPER"
+        echo "No packages for $AUR_HELPER"
     fi
 }
 
@@ -69,8 +77,12 @@ flatpak_install_bulk() {
     done
     
     if [[ ${#flatpak_list[@]} -eq 0 ]]; then
-        echo "no packages for flatpak"
+        echo "No packages for flatpak"
     else
-        flatpak install ${flatpak_list[@]}
+        echo "Installing flatpaks: ${flatpak_list[@]}"
+        if ! flatpak install -y ${flatpak_list[@]}; then
+            echo "Error: Failed to install flatpak packages"
+            exit 1
+        fi
     fi
 }
