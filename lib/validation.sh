@@ -14,5 +14,7 @@ validation_check_arch() {
 }
 
 validation_check_system() {
-    validation_check_arch
+    if ! validation_check_arch; then
+        return 1
+    fi
 }

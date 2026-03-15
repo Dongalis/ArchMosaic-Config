@@ -60,7 +60,7 @@ helpers_detect_aur_helper() {
 
 helpers_install_chaotic_aur() {
     if pacman -Sl chaotic-aur &>/dev/null; then
-        echo "CHaotic Aur already configured"
+        echo "Chaotic AUR already configured"
         return 0
     fi
     
@@ -87,9 +87,10 @@ helpers_install_aur_helper() {
 
     sudo pacman -Syu --needed git
     git clone "https://aur.archlinux.org/${AUR_HELPER}.git" "$HOME/${AUR_HELPER}"
-    cd "$HOME/${AUR_HELPER}"
-    makepkg -si
-    cd "$HOME"
+    (
+        cd "$HOME/${AUR_HELPER}"
+        makepkg -si
+    )
     rm -rf "$HOME/${AUR_HELPER}"
 }
 

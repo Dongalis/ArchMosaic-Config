@@ -57,7 +57,10 @@ parse_args() {
 }
 
 validate_system() {
-    validation_check_system
+    if ! validation_check_system; then
+        echo "System validation failed."
+        exit 1
+    fi
 }
 
 detect_aur_helper() {
@@ -94,7 +97,12 @@ run_post_install() {
 }
 
 cleanup() {
-    echo cleanup
+    # Placeholder for cleanup tasks
+    # Examples:
+    # - Remove temporary files
+    # - Restore backups
+    # - Log completion status
+    :
 }
 
 # ------------------------------------------------------------------------------
