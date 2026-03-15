@@ -12,7 +12,7 @@ packages_install_bulk() {
     local aur_list=()
 
     for profile in "${profiles[@]}"; do
-        local file=("$SCRIPT_DIR/profiles/${profile}/packages.txt")
+        local file="$SCRIPT_DIR/profiles/${profile}/packages.txt"
 
         if [[ ! -f "$file" ]]; then
             continue
@@ -54,7 +54,7 @@ flatpak_install_bulk() {
     local flatpak_list=()
 
     for profile in "${profiles[@]}"; do
-        local file=("$SCRIPT_DIR/profiles/${profile}/flatpaks.txt")
+        local file="$SCRIPT_DIR/profiles/${profile}/flatpaks.txt"
 
         if [[ ! -f "$file" ]]; then
             continue
