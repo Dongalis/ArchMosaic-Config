@@ -11,7 +11,6 @@ declare -Ag meta_home=()
 check_manifest_conflicts() {
     local type="$1" # "root" or "home"
     local -n meta_ref="$2"
-    local has_conflict=0
 
     for profile in "${profiles[@]}"; do
         local manifest="$SCRIPT_DIR/profiles/${profile}/${type}.manifest"
@@ -33,10 +32,9 @@ check_manifest_conflicts() {
             if [[ -n "${meta_ref[$path]:-}" ]]; then
                 echo "[ERROR] Duplicate ${type} file detected:"
                 echo "  Path: $path"
-                echo "  Profiles: ${seen_ref[$path]} and $profile"
+                echo "  Profiles: ${meta_ref[$path]} and $profile"
                 exit 1
             else
-                echo "$path"
                 meta_ref["$path"]="$profile $mode $user $group"
             fi
         done < "$manifest"

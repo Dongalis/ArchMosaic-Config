@@ -64,13 +64,39 @@ helpers_install_chaotic_aur() {
         return 0
     fi
     
-    sudo pacman-key --init 
-    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    sudo pacman-key --lsign-key 3056513887B78AEB
-    sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-    sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+    echo "Setting up Chaotic AUR repository..."
+    
+    if ! sudo pacman-key --init; then
+        echo "Error: Failed to initialize pacman keys"
+        exit 1
+    fi
+    
+    if ! sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com; then
+        echo "Error: Failed to receive Chaotic AUR key"
+        exit 1
+    fi
+    
+    if ! sudo pacman-key --lsign-key 3056513887B78AEB; then
+        echo "Error: Failed to sign Chaotic AUR key"
+        exit 1
+    fi
+    
+    if ! sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'; then
+        echo "Error: Failed to install chaotic-keyring"
+        exit 1
+    fi
+    
+    if ! sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'; then
+        echo "Error: Failed to install chaotic-mirrorlist"
+        exit 1
+    fi
+    
     echo -e "\r\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf >/dev/null
-    sudo pacman -Syu
+    
+    if ! sudo pacman -Syu; then
+        echo "Error: Failed to sync pacman databases"
+        exit 1
+    fi
 }
 
 helpers_install_aur_helper() {
@@ -81,12 +107,22 @@ helpers_install_aur_helper() {
     
     if pacman -Sl chaotic-aur &>/dev/null; then
         echo "Installing AUR helper using chaotic AUR"
-        sudo pacman -Syu --needed "$AUR_HELPER"
+        if ! sudo pacman -Syu --needed "$AUR_HELPER"; then
+            echo "Error: Failed to install $AUR_HELPER from Chaotic AUR"
+            exit 1
+        fi
         return 0
     fi
 
-    sudo pacman -Syu --needed git
-    git clone "https://aur.archlinux.org/${AUR_HELPER}.git" "$HOME/${AUR_HELPER}"
+    if ! sudo pacman -Syu --needed git; then
+        echo "Error: Failed to install git"
+        exit 1
+    fi
+
+    if ! git clone "https://aur.archlinux.org/${AUR_HELPER}.git" "$HOME/${AUR_HELPER}"; then
+        echo "Error: Failed to clone $AUR_HELPER repository"
+        exit 1
+    fi
     (
         cd "$HOME/${AUR_HELPER}"
         makepkg -si
@@ -107,7 +143,10 @@ helpers_install_flatpak() {
         echo "flatpak already installed"
         return 0
     fi
-    sudo pacman -Syu --needed flatpak
+    if ! sudo pacman -Syu --needed flatpak; then
+        echo "Error: Failed to install flatpak"
+        exit 1
+    fi
 }
 
 helpers_packaging_setup() {
