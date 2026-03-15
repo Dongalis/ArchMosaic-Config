@@ -7,6 +7,8 @@ readonly FILES_SH_LOADED=1
 
 declare -Ag meta_root=()
 declare -Ag meta_home=()
+declare -Ag first_profile_root=()
+declare -Ag first_profile_home=()
 
 check_manifest_conflicts() {
     local type="$1" # "root" or "home"
@@ -30,12 +32,23 @@ check_manifest_conflicts() {
             fi
 
             if [[ -n "${meta_ref[$path]:-}" ]]; then
+                local first_profile
+                if [[ "$type" == "root" ]]; then
+                    first_profile="${first_profile_root[$path]}"
+                else
+                    first_profile="${first_profile_home[$path]}"
+                fi
                 echo "[ERROR] Duplicate ${type} file detected:"
                 echo "  Path: $path"
-                echo "  Profiles: ${meta_ref[$path]} and $profile"
+                echo "  Profiles: $first_profile and $profile"
                 exit 1
             else
                 meta_ref["$path"]="$profile $mode $user $group"
+                if [[ "$type" == "root" ]]; then
+                    first_profile_root["$path"]="$profile"
+                else
+                    first_profile_home["$path"]="$profile"
+                fi
             fi
         done < "$manifest"
     done
