@@ -21,6 +21,11 @@ check_manifest_conflicts() {
         while IFS=' ' read -r path mode user group; do
             [[ -z "$path" || "$path" =~ ^# ]] && continue
 
+            if [[ -z "$mode" || -z "$user" || -z "$group" ]]; then
+                echo "[ERROR] Invalid manifest entry for '$path': missing fields (need: path mode user group)"
+                exit 1
+            fi
+
             if [[ "$type" == "home" ]]; then
                 path="${path#/}"
             fi
@@ -203,7 +208,7 @@ files_deploy() {
     verify_metadata_files_exist home meta_home || exit 1
 
     deploy_root_files meta_root
-    TARGET_USER="$USER"
+    TARGET_USER="${USER:-$(whoami)}"
     deploy_home_files meta_home "$TARGET_USER"
 }
 
