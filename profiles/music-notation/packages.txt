@@ -1,2 +1,2 @@
-musescore
+musescore-bin
 audacity
