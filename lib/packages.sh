@@ -27,6 +27,12 @@ packages_install_bulk() {
     for pkg in "${packages[@]}"; do
         if pacman -Si "$pkg" &>/dev/null; then
             pacman_list+=("$pkg")
+
+        elif pacman -Sg "$pkg" &>/dev/null; then
+            while read -r package; do
+                pacman_list+=("$package")
+            done < <(pacman -Sg "$pkg" | awk '{print $2}')
+
         else
             if $AUR_HELPER -Si "$pkg" &>/dev/null; then
                 aur_list+=("$pkg")

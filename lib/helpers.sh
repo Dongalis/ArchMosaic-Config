@@ -119,6 +119,11 @@ helpers_install_aur_helper() {
         exit 1
     fi
 
+    if ! sudo pacman -Syu --needed debugedit base-devel; then
+        echo "Error: Failed to install debugedit and/or base-devel"
+        exit 1
+    fi
+
     if ! git clone "https://aur.archlinux.org/${AUR_HELPER}.git" "$HOME/${AUR_HELPER}"; then
         echo "Error: Failed to clone $AUR_HELPER repository"
         exit 1
