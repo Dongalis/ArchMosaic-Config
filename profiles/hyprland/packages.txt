@@ -55,3 +55,4 @@ hyprshot
 satty
 power-profiles-daemon
 impala
+inetutils
