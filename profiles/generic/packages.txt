@@ -1,3 +1,4 @@
 proton-pass-bin
 proton-pass-cli-bin
 obsidian
+typora
